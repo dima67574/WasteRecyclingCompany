@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.bakhir.wasteRecycling.dAO.IProductTypeDao">
+	<resultMap type="ProductType" id="ProductTypeResultMap" autoMapping="false">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="usage" property="usage" />
+	</resultMap>
+	<select id="getById" parameterType="java.lang.Long"
+		resultMap="ProductTypeResultMap" >
+		select pr.id, pr.name, pr.usage from product_type pr where pr.id =#{id}
+	</select>
+	 <update id="update" parameterType="ProductType">
+        UPDATE product_type
+        SET name = #{name}, usage = #{usage}
+        WHERE id = #{id}
+    </update>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete product_type
+		WHERE id = #{id}
+	</delete>
+	<insert id="insert" parameterType="ProductType" keyProperty="id" useGeneratedKeys="true" >
+	  insert into product_type (name, usage)
+	  values (#{name},#{usage} )
+	</insert>
+	
+	
+</mapper>

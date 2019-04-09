@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="database.properties">
+		<property name="username" value="username" />
+		<property name="password" value="password" />
+		<property name="url" value="url" />
+		<property name="driver" value="driver" />
+	</properties>
+    <typeAliases> 
+		<typeAlias type="com.bakhir.wasteRecycling.models.Adress" alias="Adress"/>
+		<typeAlias type="com.bakhir.wasteRecycling.models.UtilityCompany" alias="UtilityCompany"/>
+		<typeAlias type="com.bakhir.wasteRecycling.models.IncinerationFactory" alias="IncinerationFactory"/>
+		<typeAlias type="com.bakhir.wasteRecycling.models.WasteRecyclingFactory" alias="WasteRecyclingFactory"/>
+		<typeAlias type="com.bakhir.wasteRecycling.models.ProductType" alias="ProductType"/>		
+		<typeAlias type="com.bakhir.wasteRecycling.models.EnergyResourceType" alias="EnergyResourceType"/>
+		<typeAlias type="com.bakhir.wasteRecycling.models.WasteType" alias="WasteType"/>
+		<typeAlias type="com.bakhir.wasteRecycling.models.Dump" alias="Dump"/>
+	</typeAliases>
+
+    <environments default="local">
+        <environment id="local">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+            </dataSource>
+        </environment>
+    </environments>
+   <mappers>
+		<mapper resource="mappers/AdressMapper.xml"/>		
+		<mapper resource="mappers/UtilityCompanyMapper.xml"/>	
+		<mapper resource="mappers/IncinerationFactoryMapper.xml"/>	
+		<mapper resource="mappers/WasteRecyclingFactoryMapper.xml"/>
+		<mapper resource="mappers/ProductTypeMapper.xml"/>		
+		<mapper resource="mappers/EnergyResourceTypeMapper.xml"/>	
+		<mapper resource="mappers/WasteTypeMapper.xml"/>
+		<mapper resource="mappers/DumpMapper.xml"/>
+	</mappers>
+
+</configuration>

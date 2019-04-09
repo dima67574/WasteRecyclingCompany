@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.bakhir.wasteRecycling.dAO.IDumpDao">
+	<resultMap type="Dump" id="DumpResultMap" autoMapping="false">
+		<id column="id" property="id" />
+		<result column="capacity" property="capacity" />
+		<association property="adress" column="adress_id" javaType = "com.bakhir.wasteRecycling.models.Adress" select = "com.bakhir.wasteRecycling.dAO.IAdressDao.getById" />
+		<association property="utilityCompany" column="utility_company_id" javaType = "com.bakhir.wasteRecycling.models.UtilityCompany" select = "com.bakhir.wasteRecycling.dAO.IUtilityCompanyDao.getById" />
+	</resultMap>
+	<select id="getById" parameterType="java.lang.Long"
+		resultMap="DumpResultMap" >
+		select du.id, du.capacity, du.adress_id, ad.id, ad.coutry, ad.region, ad.city, ad.street, ad.number, ad.zip_code,ut.id, ut.number_employees, ut.name, ut.adress_id, from dump du LEFT JOIN adress ad ON wa.adress_id=ad.id LEFT JOIN utility_company_id ut ON wa.utility_company_id=ut.id  where du.id =#{id}
+	</select>
+	<update id="update" parameterType="Dump">
+        UPDATE dump
+        SET capacity = #{capacity}, adress_id = #{adress.id}, utility_company_id = #{utilityCompany.id}
+        WHERE id = #{id}
+    </update>
+	<insert id="insert" parameterType="Dump" keyProperty="id" useGeneratedKeys="true">
+	  insert into dump (capacity, adress_id, utility_company_id)
+	  values (#{capacity},#{adress.id},,#{utilityCompany.id} )
+	</insert>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete dump
+		WHERE id = #{id}
+	</delete>
+	
+	
+</mapper>

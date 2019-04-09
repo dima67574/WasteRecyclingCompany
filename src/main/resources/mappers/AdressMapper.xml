@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.bakhir.wasteRecycling.dAO.IAdressDao">
+	<resultMap type="Adress" id="AdressResultMap" autoMapping="false">
+		<id column="id" property="id" />
+		<result column="region" property="region" />
+		<result column="coutry" property="country" />
+		<result column="city" property="city" />
+		<result column="street" property="street" />
+		<result column="number" property="number" />
+		<result column="zip_code" property="zipCode" />
+	</resultMap>
+	<select id="getById" parameterType="java.lang.Long"
+		resultMap="AdressResultMap" >
+		select ad.id, ad.coutry, ad.region, ad.city, ad.street, ad.number, ad.zip_code from adress ad where ad.id =#{id}
+	</select>
+	 <update id="update" parameterType="Adress">
+        UPDATE adress
+        SET region = #{region}, coutry = #{country}, city = #{city}, street = #{street}, number = #{number},  zip_code = #{zipCode}
+        WHERE id = #{id}
+    </update>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete adress
+		WHERE id = #{id}
+	</delete>
+	<insert id="insert" parameterType="Adress" keyProperty="id" useGeneratedKeys="true" >
+	  insert into adress (coutry, region, city, street, number, zip_code)
+	  values (#{country},#{region},#{city},#{street},#{number},#{zipCode} )
+	</insert>
+	
+	
+</mapper>

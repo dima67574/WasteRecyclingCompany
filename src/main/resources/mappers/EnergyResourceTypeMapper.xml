@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.bakhir.wasteRecycling.dAO.IEnergyResourceTypeDao">
+	<resultMap type="EnergyResourceType" id="EnergyResourceTypeResultMap" autoMapping="false">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="generated_energy" property="generatedEnergy" />
+	</resultMap>
+	<select id="getById" parameterType="java.lang.Long"
+		resultMap="EnergyResourceTypeResultMap" >
+		select en.id, en.name, en.generated_energy from energy_resource_type en where en.id =#{id}
+	</select>
+	 <update id="update" parameterType="EnergyResourceType">
+        UPDATE energy_resource_type
+        SET name = #{name}, generated_energy = #{generatedEnergy}
+        WHERE id = #{id}
+    </update>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete energy_resource_type
+		WHERE id = #{id}
+	</delete>
+	<insert id="insert" parameterType="EnergyResourceType" keyProperty="id" useGeneratedKeys="true" >
+	  insert into energy_resource_type (name, generated_energy)
+	  values (#{name},#{generatedEnergy} )
+	</insert>
+	
+	
+</mapper>

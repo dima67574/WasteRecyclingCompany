@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.bakhir.wasteRecycling.dAO.IUtilityCompanyDao">
+	<resultMap type="UtilityCompany" id="UtilityCompanyResultMap" autoMapping="false">
+		<id column="id" property="id" />
+		<result column="number_employees" property="numberEmployees" />
+		<result column="name" property="name" />
+		<association property="adress" column="adress_id" javaType = "com.bakhir.wasteRecycling.models.Adress" select = "com.bakhir.wasteRecycling.dAO.IAdressDao.getById" />
+	</resultMap>
+	<select id="getById" parameterType="java.lang.Long"
+		resultMap="UtilityCompanyResultMap" >
+		select ut.id, ut.number_employees, ut.name, ut.adress_id, ad.id, ad.coutry, ad.region, ad.city, ad.street, ad.number, ad.zip_code from utility_company ut LEFT JOIN adress ad ON ut.adress_id=ad.id  where ut.id =#{id}
+	</select>
+	<update id="update" parameterType="UtilityCompany">
+        UPDATE utility_company
+        SET number_employees = #{numberEmployees}, name = #{name}, adress_id = #{adress.id}
+        WHERE id = #{id}
+    </update>
+	<insert id="insert" parameterType="UtilityCompany" keyProperty="id" useGeneratedKeys="true">
+	  insert into utility_company (number_employees, name, adress_id)
+	  values (#{numberEmployees},#{name},#{adress.id} )
+	</insert>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete utility_company
+		WHERE id = #{id}
+	</delete>
+	
+	
+</mapper>

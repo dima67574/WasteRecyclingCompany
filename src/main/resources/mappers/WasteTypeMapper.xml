@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.bakhir.wasteRecycling.dAO.IWasteTypeDao">
+	<resultMap type="WasteType" id="WasteTypeResultMap" autoMapping="false">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+	</resultMap>
+	<select id="getById" parameterType="java.lang.Long"
+		resultMap="WasteTypeResultMap" >
+		select wt.id, wt.name from waste_type en where wt.id =#{id}
+	</select>
+	 <update id="update" parameterType="WasteType">
+        UPDATE waste_type
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete waste_type
+		WHERE id = #{id}
+	</delete>
+	<insert id="insert" parameterType="WasteType" keyProperty="id" useGeneratedKeys="true" >
+	  insert into waste_type (name)
+	  values (#{name} )
+	</insert>
+	
+	
+</mapper>
